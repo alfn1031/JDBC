@@ -1,0 +1,9 @@
+package com.kh.start.run;
+
+public class InsertRun {
+
+	public static void main(String[] args) {
+		// JDBC 맛보기
+	}
+
+}

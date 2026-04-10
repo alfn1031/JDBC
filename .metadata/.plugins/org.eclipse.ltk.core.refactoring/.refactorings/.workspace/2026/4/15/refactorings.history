@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;00_JDBC_START/src/com/kh/start/run/Run.java&apos;" deleteContents="false" description="Delete resource &apos;00_JDBC_START/src/com/kh/start/run/Run.java&apos;" element1="/00_JDBC_START/src/com/kh/start/run/Run.java" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1775788086428"/>
+</session>

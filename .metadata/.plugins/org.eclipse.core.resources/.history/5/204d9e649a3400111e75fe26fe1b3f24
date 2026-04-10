@@ -1,0 +1,84 @@
+package com.kh.start.run;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class InsertRun {
+
+	public static void main(String[] args) {
+		// JDBC 맛보기
+		/*
+		 * java를 사용하지 않았을 때 ZONE테이블에 한 행 인서트하려면 어떤 절차가 필요한가?
+		 * 
+		 * 1. 컴퓨터를 킨다
+		 * 
+		 * 2. 디비버를 실행(클라이언트 프로그램)
+		 * 
+		 * 3. 접속하기(콘센트) 누름
+		 * 
+		 * 4. Oracle선택
+		 * 
+		 * 5. IP주소, PORT번호, 사용자이름, 비밀번호가지고 연결
+		 * 
+		 * 6. 새 SQL편집기
+		 * 
+		 * 7. INSERT문 작성 -> INSERT INTO ZONE VALUES('값', '값', '값');
+		 * 
+		 * 8. SQL문을 실행
+		 * 
+		 * 9. UpdatedRows : 1
+		 * 
+		 * 10. COMMIT
+		 */
+		// 0) 필요한 변수 세팅
+		Connection conn = null;
+		Statement stmt = null;
+		int result = 0;
+		
+		// ZONE테이블에 사용자가 입력한 값을 보내서 -> ZONE테이블에 INSERT
+		Scanner sc = new Scanner(System.in);
+		
+		String sql = "INSERT INTO ZONE VALUES('50', '테스트', '테스트')";
+		
+		// 나는 오라클 DBMS에다가 작업할거다
+		
+		try {
+			// 리플렉션을 사용해서 동적으로 클래스 로드
+			// 1) JDBC Driver 등록 -> ORACLE -> object.jar
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver등록에 성공했습니다.");
+			
+			// 2) DB서버랑 연결(IP주소, PORT번호, 사용자 이름, 비밀번호)
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE",
+										"C##MS",
+										"ms");
+			System.out.println("DB연결에 성공했습니다.");
+			
+			// 학습을 위해 오토커밋 끄기
+			conn.setAutoCommit(false);
+			
+			// 3) 새 SQL편집기 열기
+			conn.createStatement();
+			System.out.println("Statement 객체 생성 완료.");
+			
+			// 4) SQL문 실행
+			// executeUpdate(DML문)
+			executeUpdate(sql);
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+	}
+
+}
