@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>MEMBER SQL</comment>
+
+<entry key="A">
+	B
+</entry>
+	
+<entry key="idCheck">
+						SELECT
+								COUNT(*)
+						  FROM
+						  		JDBC_MEMBER
+						 WHERE
+						 		MEMBER_ID = ?
+					
+</entry>
+	
+<entry key="signUp">
+						INSERT
+						  INTO
+						  		JDBC_MEMBER
+						VALUES
+								(
+								?
+							  , ?
+							  , ?
+								)
+
+</entry>	
+
+<entry key="login">
+		SELECT
+				MEMBER_ID
+		      , MEMBER_NAME
+		  FROM
+		  		JDBC_MEMBER
+		 WHERE
+		 		MEMBER_ID = ?
+		   AND
+		   		MEMBER_PWD = ?
+
+</entry>
+
+<entry key="loginCheck">
+		INSERT
+		  INTO
+		  		LOGIN_CHECK
+		  		(
+		  		MEMBER_ID
+		  		)
+		 VALUES
+		 		(
+		 		?
+		 		)
+
+</entry>
+
+<entry key="selectInsertCount">
+		SELECT
+				COUNT(*)
+		  FROM
+		  		LOGIN_CHECK
+		 WHERE
+		  		MEMBER_ID = ?
+
+</entry>
+	
+<entry key="insertBoard">
+	INSERT
+	  INTO
+	  		JDBC_BOARD
+	  		(
+	  		BOARD_TITLE
+	  	  , BOARD_CONTENT
+	  	  , BOARD_WRITER
+	  		)
+	VALUES
+			(
+			?
+		  , ?
+		  , ?
+			)
+</entry>
+
+<entry key="selectBoardList">
+	SELECT
+			BOARD_NO
+		  , BOARD_TITLE
+		  , MEMBER_NAME
+	  FROM
+	  		JDBC_BOARD
+	  JOIN
+	  		JDBC_MEMBER ON(MEMBER_ID = BOARD_WRITER)
+	  ORDER
+	  	 BY
+	  	 	BOARD_NO DESC
+
+</entry>
+
+<entry key="selectBoard">
+	SELECT
+			BOARD_NO
+		  , BOARD_TITLE
+		  , BOARD_CONTENT
+		  , MEMBER_NAME
+	  FROM
+	  		JDBC_BOARD
+	  JOIN
+	  		JDBC_MEMBER ON(MEMBER_ID = BOARD_WRITER)
+	 WHERE
+	 		BOARD_NO = ?
+</entry>
+	
+	
+</properties>
