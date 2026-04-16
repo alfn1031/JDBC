@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  <!--
+  	    XML에서 주석작성하는 방법
+  	    이 문서가 configuration(환경설정)임을 알려줌
+  	    .dtd는 유효성 검사를 해줌
+  	    ==> 최상위 부모요소가 configuration element
+   -->
+  	<settings>
+  		<setting name="mapUnderscoreToCamelCase" value="true"/>
+  	</settings>
+  
+  
+  
+  	<typeAliases>
+  		<typeAlias type="com.kh.animal.model.dto.AnimalDto" alias="animal" />
+  	</typeAliases>
+  	
+  
+  	<environments default="deployment">
+  		<environment id="deployment">
+  			<transactionManager type="JDBC" />
+  	
+  			<dataSource type="POOLED">
+  				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+  				<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+  				<property name="username" value="C##MS"/>
+  				<property name="password" value="ms"/>
+  			</dataSource>
+  		</environment>
+  	</environments>
+  	
+  	<mappers>
+  		<mapper resource="animal-mapper.xml" />
+  	</mappers>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  </configuration>

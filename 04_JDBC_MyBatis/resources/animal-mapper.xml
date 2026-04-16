@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="animalMapper">
+  	  
+  	  <insert id="save" parameterType="animal" >
+  	  		INSERT
+  	  		  INTO
+  	  		  		ANIMAL
+  	  		VALUES
+  	  				(
+  	  				'A' || SEQ_ANIMAL_ID.NEXTVAL
+  	  			  , #{animalName} 
+  	  			  , #{speciesId} 
+  	  			  , #{zoneId} 
+  	  			  , #{keeperId} 
+  	  			  , #{gender} 
+  	  			  , #{weightKg} 
+  	  			  , SYSDATE 
+  	  			  , SYSDATE 
+  	  				)
+  	  </insert>
+  	  
+  	  <resultMap id="animalResultSet" type="animal">
+  	  		<id column="ANIMAL_ID" property="animalId" />
+  	  		<result column="ANIMAL_NAME" property="animalName" />
+  	  		<result column="SPECIES_NAME" property="speciesId" />
+  	  		<result column="ZONE_NAME" property="zoneId" />
+  	  		<result column="KEEPER_NAME" property="keeperId" />
+  	  		<result column="GENDER" property="gender" />
+  	  		<result column="WEIGHT_KG" property="weightKg" />
+  	  </resultMap>
+  	  
+  	  
+  	  <sql id="selectAnimColumn">
+  	  SELECT
+  	  			ANIMAL_ID animalId
+  	  		  , ANIMAL_NAME animalName
+  	  		  , SPECIES_NAME speciesId
+  	  		  , ZONE_NAME zoneId
+  	  		  , NVL(KEEPER_NAME, '없음') keeperId
+  	  		  , GENDER 
+  	  		  , WEIGHT_KG weightKg
+  	  	  FROM
+  	  	  		ANIMAL
+  	  	  JOIN
+  	  	  		SPECIES USING(SPECIES_ID)
+  	  	  JOIN
+  	  	  		ZONE USING(ZONE_ID)
+  	  	  LEFT
+  	  	  JOIN
+  	  	  		KEEPER USING(KEEPER_ID)
+  	  </sql>
+  	  
+  	  <select id="findAll" resultType="animal">
+  	  	<include refid="selectAnimColumn"/>
+  	  	 ORDER
+  	  	 	BY
+  	  	 		ANIMAL_ID DESC
+  	  </select>
+  	  
+  	  <select id="findById" resultType="animal" parameterType="string">
+  	  		SELECT
+  	  				ANIMAL_ID animalId
+  	  			  , ANIMAL_NAME animalName
+  	  			  , SPECIES_NAME speciesId
+  	  			  , NVL(KEEPER_NAME, '없음') keeperId
+  	  			  , ZONE_NAME zoneId
+  	  			  , GENDER 
+  	  			  , WEIGHT_KG weightKg
+  	  		  FROM
+  	  		  		ANIMAL
+  	  		  JOIN
+  	  		  		SPECIES USING(SPECIES_ID)
+  	  		  JOIN
+  	  		  		ZONE USING(ZONE_ID)
+  	  		  LEFT
+  	  		  JOIN
+  	  		  		KEEPER USING(KEEPER_ID)
+  	  		 WHERE
+  	  		 		ANIMAL_ID = #{id}
+  	  </select>
+  	  
+  	  <select id="findByKeyword" resultType="animal" parameterType="string">
+  	  		SELECT
+  	  				ANIMAL_ID 
+  	  			  , ANIMAL_NAME 
+  	  			  , SPECIES_ID 
+  	  			  , ZONE_ID 
+  	  			  , KEEPER_ID 
+  	  		  FROM
+  	  		  		ANIMAL
+  	  		 WHERE
+  	  		 		ANIMAL_NAME LIKE '%' || #{keyword} || '%'
+  	  </select>
+  	  
+  	  
+  </mapper>
+  
