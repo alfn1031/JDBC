@@ -11,12 +11,14 @@
    -->
   	<settings>
   		<setting name="mapUnderscoreToCamelCase" value="true"/>
+  		<setting name="logImpl" value="STDOUT_LOGGING" />
   	</settings>
   
   
   
   	<typeAliases>
   		<typeAlias type="com.kh.animal.model.dto.AnimalDto" alias="animal" />
+  		<typeAlias type="com.kh.animal.model.dto.KeeperDto" alias="keeper" />
   	</typeAliases>
   	
   
@@ -35,6 +37,7 @@
   	
   	<mappers>
   		<mapper resource="animal-mapper.xml" />
+  		<mapper resource="keeper-mapper.xml" />
   	</mappers>
   	
   	

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="keeperMapper">
+  	  
+  	  <select id="selectKeeperList" resultType="keeper">
+  	  		SELECT
+  	  				KEEPER_ID
+  	  			  , KEEPER_NAME
+  	  		  FROM
+  	  		  		KEEPER
+  	  </select>
+		
+	  <select id="selectAnimalList" resultType="animal" parameterType="string">
+	  		SELECT
+	  				ANIMAL_ID
+	  			  , ANIMAL_NAME
+	  		  FROM
+	  		  		ANIMAL
+	  		 WHERE
+	  		 		KEEPER_ID = #{keeperId}
+	  </select>
+	  
+	  <resultMap id="keeperWithAnimals" type="keeper">
+	  		<id column="KEEPER_ID" property="keeperId" />
+	  		<result column="KEEPER_NAME" property="keeperName" />
+	  		<collection property="animals" ofType="animal">
+	  			<id column="ANIAML_ID" property="animalId" />
+	  			<result column="ANIMAL_NAME" property="animalName" />
+	  		</collection>
+	  </resultMap>
+	  
+	  <select id="findKeeperAndAnimals" resultMap="keeperWithAnimals">
+	  		SELECT
+	  				KEEPER_ID
+	  			  , KEEPER_NAME
+	  			  , ANIMAL_ID
+	  			  , ANIMAL_NAME
+	  		  FROM
+	  		  		KEEPER
+	  		  JOIN
+	  		  		ANIMAL_USING(KEEPER_ID)
+	  </select>
+		  	 
+	  <select id="selectKeeperByCondition" resultType="keeper">
+	  		SELECT
+	  				KEEPER_ID
+	  			  , KEEPER_NAME
+	  		  FROM
+	  		  		KEEPER 
+	  		 WHERE
+	  		 	<choose>
+	  		 		<when test="menuNo == 1">
+	  		 		KEEPER_ID 
+	  		 		</when>
+					<when test="menuNo == 2">
+	  		 		KEEPER_NAME 
+					</when>	  		 	
+					<when test="menuNo == 3">
+	  		 		ZONE_ID 
+					</when>	  		 	
+					<otherwise>
+					KEEPER_ID = 1 OR 1 = 1
+					</otherwise>
+	  		 	</choose>
+			 ORDER
+			  	BY
+			  		KEEPER_ID	
+	  </select>
+	  
+	  <update id="updateAnimal">
+	  		UPDATE
+	  				ANIMAL
+	  		   SET
+	  		   		ZONE_ID = #{zoneid}
+	  		   	  , KEEPER_ID = #{keeperId}
+	  		   	  , WEIGHT_KG = #{weightKg}
+	  		 WHERE
+	  		  		ANIMAL_ID = #{animalId}
+	  </update>
+		  	 
+		  	 
+  </mapper>
+  
